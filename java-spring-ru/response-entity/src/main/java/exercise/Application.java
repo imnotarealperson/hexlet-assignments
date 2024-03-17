@@ -46,7 +46,7 @@ public class Application {
                 .filter(post -> id.equals(post.getId()))
                 .findFirst();
 
-        return result.map(post -> ResponseEntity.ok().body(post)).orElseGet(() -> ResponseEntity.notFound().build());
+        return ResponseEntity.of(result);
     }
 
     @PostMapping("/posts")
