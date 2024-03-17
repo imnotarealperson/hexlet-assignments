@@ -61,14 +61,15 @@ public class Application {
         Optional<Post> postToUpdate = posts.stream()
                 .filter(p -> id.equals(p.getId()))
                 .findFirst();
+        HttpStatus status = HttpStatus.NO_CONTENT;
         if (postToUpdate.isPresent()) {
             Post updatablePost = postToUpdate.get();
             updatablePost.setTitle(post.getTitle());
             updatablePost.setBody(post.getBody());
-            return ResponseEntity.ok().body(post);
+            status = HttpStatus.OK;
         }
 
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.status(status).body(post);
     }
 
     // END
