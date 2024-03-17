@@ -30,12 +30,11 @@ public class Application {
     @GetMapping("/admins")
     public List<String> getAdminNames() {
         List<String> adminEmails = adminInfo.getAdmins();
-        return adminEmails.stream()
-                .map(email -> users.stream().filter(u -> email.equals(u.getEmail())).collect(Collectors.toList()))
-                .flatMap(Collection::stream)
-                .map(User::getName)
-                .distinct()
-                .sorted().toList();
+        return users.stream()
+                .filter(user -> adminEmails.contains(user.getEmail()))
+                .map(user -> user.getName())
+                .sorted()
+                .toList();
 
     }
     // END
